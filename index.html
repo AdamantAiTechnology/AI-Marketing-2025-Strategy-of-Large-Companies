@@ -1,0 +1,210 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ИИ-Маркетинг 2025: Стратегия больших охватов</title>
+    <style>
+        /* Defining color scheme and general styles */
+        body {
+            font-family: 'Noto Serif', serif;
+            background-color: #4A0E0E; /* Deep burgundy background */
+            color: #F9F9F9; /* Light text for contrast */
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            text-align: center;
+            padding: 50px 20px;
+            border-bottom: 3px solid #D4AF37; /* Gold border */
+        }
+        header h1 {
+            font-size: 2.5em;
+            color: #D4AF37; /* Gold text for title */
+            margin-bottom: 10px;
+        }
+        header p {
+            font-size: 1.2em;
+            color: #F9F9F9;
+        }
+        .book-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 40px 20px;
+            background-color: #5E1A1A; /* Slightly lighter burgundy section */
+            border: 2px solid #D4AF37;
+            border-radius: 10px;
+        }
+        .book-info img {
+            max-width: 300px;
+            border: 3px solid #D4AF37;
+            border-radius: 10px;
+        }
+        .book-details {
+            flex: 1;
+            min-width: 300px;
+        }
+        .book-details h2 {
+            color: #D4AF37;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+        }
+        .book-details p {
+            font-size: 1.1em;
+        }
+        .cta-personal {
+            background-color: #D4AF37; /* Gold background for primary CTA */
+            color: #4A0E0E;
+            padding: 20px;
+            text-align: center;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 2px solid #F9F9F9;
+        }
+        .cta-personal h2 {
+            margin: 0 0 10px;
+            font-size: 1.6em;
+        }
+        .cta-personal a {
+            color: #4A0E0E;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        .cta-personal a:hover {
+            text-decoration: underline;
+        }
+        .cta-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .cta-button {
+            background-color: #5E1A1A; /* Darker burgundy buttons */
+            color: #F9F9F9;
+            padding: 15px 30px;
+            text-decoration: none;
+            font-size: 1.2em;
+            border: 2px solid #D4AF37;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .cta-button:hover {
+            background-color: #D4AF37;
+            color: #4A0E0E;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #3A0B0B; /* Darker burgundy footer */
+            color: #F9F9F9;
+            border-top: 3px solid #D4AF37;
+        }
+        @media (max-width: 768px) {
+            .book-info {
+                flex-direction: column;
+                align-items: center;
+            }
+            .book-info img {
+                max-width: 100%;
+            }
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>ИИ-Маркетинг 2025: Стратегия больших охватов</h1>
+        <p>Революционное руководство от Дмитрия Адаманта для взрывного роста вашего бренда!</p>
+    </header>
+
+    <div class="container">
+        <section class="book-info">
+            <img src="book_cover_placeholder.png" alt="Обложка книги ИИ-Маркетинг 2025">
+            <div class="book-details">
+                <h2>О книге</h2>
+                <p>В 2025 году цифровой маркетинг меняется, и <strong>ИИ-Маркетинг 2025: Стратегия больших охватов</strong> — это ваш ключ к миллионам подписчиков без огромных бюджетов! Дмитрий Адамант делится проверенной системой, которая позволяет:</p>
+                <ul>
+                    <li>Создавать до 25 коротких видео в день с помощью ИИ и автоматизации.</li>
+                    <li>Настраивать машину контента через платформу N8N за 2–3 дня.</li>
+                    <li>Обходить алгоритмы соцсетей для максимального охвата.</li>
+                    <li>Превратить просмотры в клиентов с минимальными затратами (~350$/мес).</li>
+                </ul>
+                <p>Эта книга — не просто теория, а пошаговый план для любого бизнеса или личного бренда, будь то психология, коучинг, астрология или любая другая ниша.</p>
+            </div>
+        </section>
+
+        <section class="cta-personal">
+            <h2>Поддержите труд автора!</h2>
+            <p>Хотите получить электронную версию книги по самой выгодной цене? Напишите Дмитрию лично в Телеграм и выберите удобный способ <strong>благодарности</strong> за его труд:</p>
+            <ul>
+                <li>Рекомендуемая благодарность: 500 рублей (~$5).</li>
+                <li>Расширенная благодарность: 1000 рублей (~$10) — получите бонусный гайд по настройке N8N!</li>
+            </ul>
+            <p><a href="https://t.me/your_telegram_handle" target="_blank">Написать в Телеграм</a> и получите книгу в PDF мгновенно!</p>
+        </section>
+
+        <section class="cta-buttons">
+            <p>Или купите книгу с наценкой 90% на популярных платформах:</p>
+            <a href="https://www.amazon.com" target="_blank" class="cta-button">Купить на Amazon</a>
+            <a href="https://www.ozon.ru" target="_blank" class="cta-button">Купить на Ozon</a>
+            <a href="https://www.litres.ru" target="_blank" class="cta-button">Купить на ЛитРес</a>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Дмитрий Адамант. Все права защищены.</p>
+    </footer>
+</body>
+</html>
